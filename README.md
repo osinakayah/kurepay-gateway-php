@@ -12,7 +12,7 @@ After making a call to getTransactionUrl it returns a url, do a redirect to that
 payment the user is redirected back to the url provided on the admin dashboard
 
 ### Demo
-```
+```php
 <?php
 /**
  * User: osinakayah
@@ -21,7 +21,7 @@ payment the user is redirected back to the url provided on the admin dashboard
  */
 
 $kurepay = new \Kurepay\KurepayGateway(PUBLIC_KEY);
-
+$redirectUrl = '';
 try {
     $redirectUrl = $kurepay->getTransactionUrl($email, $amount, $reference, $fullname, $phoneNumber, ['item' => "Extra meta data"]);
 }
@@ -32,5 +32,31 @@ catch (\Exception $exception){
 header('Location: ' . $redirectUrl);
 
 ```
+### Verify Transaction
 
+```php
+<?php
+/**
+ * User: osinakayah
+ * Date: 08/03/2019
+ * Time: 7:02 AM
+ */
+
+$kurepay = new \Kurepay\KurepayGateway(PUBLIC_KEY);
+$wasPaymentSuccessful = false;
+try {
+     $wasPaymentSuccessful = $kurepay->getTransactionStatus($reference);
+}
+catch (\Exception $exception){
+    die($e->getMessage());
+}
+
+if ($wasPaymentSuccessful) {
+    echo 'Payment was successful';
+}
+else {
+    echo 'Nah, it was not successful';
+}
+
+```
 
