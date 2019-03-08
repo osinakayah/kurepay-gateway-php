@@ -20,8 +20,6 @@ payment the user is redirected back to the url provided on the admin dashboard
  * Time: 7:02 AM
  */
 
-require_once 'Kurepay/KurepayGateway.php';
-
 $kurepay = new \Kurepay\KurepayGateway(PUBLIC_KEY);
 
 try {
