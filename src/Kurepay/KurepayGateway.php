@@ -80,4 +80,39 @@ class KurepayGateway
 
     }
 
+    public function getTransactionStatus($transactionReference) {
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://payment.kurepay.com/api/auth/transaction/status/".$transactionReference,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode([
+                'publicKey'=> $this->publicKey,
+            ]),
+            CURLOPT_HTTPHEADER => [
+                "content-type: application/json",
+                "cache-control: no-cache"
+            ],
+        ));
+        $response = curl_exec($curl);
+        if ($response) {
+            curl_close($curl);
+            $result = json_decode($response);
+            if ($result->data->status == 0) {
+                return false;
+            }
+            elseif ($result->data->status == 1) {
+                return true;
+            }
+        }
+        else {
+            $err = curl_error($curl);
+            curl_close($curl);
+            throw new \Exception($err);
+        }
+
+
+    }
+
 }
