@@ -1,17 +1,17 @@
-#Kurepay Payment Gateway
+# Kurepay Payment Gateway
 
 
-###Requirement
+### Requirement
 PHP 5.3.0 or more recent
 
-###Install
+### Install
 composer require osinakayah/kurepay-gateway
 
-###Usage
+### Usage
 After making a call to getTransactionUrl it returns a url, do a redirect to that url after successful
 payment the user is redirected back to the url provided on the admin dashboard
 
-###Demo
+### Demo
 ```
 <?php
 /**
